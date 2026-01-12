@@ -12,7 +12,10 @@ export class TodoService {
     private readonly todoRepository: Repository<Todo>,
   ) {}
 
-  async findAll(userId: string): Promise<Todo[]> {
+  async findAll(userId: string, status?: string): Promise<Todo[]> {
+    if (status) {
+      return this.todoRepository.find({ where: { userId, status } });
+    }
     return this.todoRepository.find({ where: { userId } });
   }
 
