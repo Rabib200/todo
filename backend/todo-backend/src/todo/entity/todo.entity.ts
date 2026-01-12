@@ -1,5 +1,4 @@
-import { Delete } from '@nestjs/common';
-import { TodoStatus } from 'libs/common/src/enums/todo-status.enum';
+import { TodoStatus } from '@app/common/enums/todo-status.enum';
 import { User } from 'src/middleware/entity/user.entity';
 import {
   BeforeInsert,
@@ -9,7 +8,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
