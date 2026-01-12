@@ -6,6 +6,7 @@ import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
+  Entity,
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
@@ -13,6 +14,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+@Entity('todos')
 export class Todo {
   @PrimaryGeneratedColumn('uuid')
   id: string;

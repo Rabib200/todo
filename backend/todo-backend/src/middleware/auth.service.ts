@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from './entity/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({ where: { email } });
     if (user && user.password === password) {
       const { password, ...result } = user;
-      const payload = { userId: user.id, email: user.email };
+      const payload = { sub: user.id, email: user.email };
       return {
         access_token: this.jwtService.sign(payload),
         user: result,
@@ -30,18 +31,22 @@ export class AuthService {
     throw new UnauthorizedException('Invalid credentials');
   }
 
-  async createUser(email: string, password: string): Promise<any> {
+  async createUser(registerDto: RegisterDto): Promise<any> {
     const existingUser = await this.userRepository.findOne({
-      where: { email },
+      where: { email: registerDto.email },
     });
     if (existingUser) {
       throw new BadRequestException('User already exists');
     }
 
-    const newUser = this.userRepository.create({ email, password });
+    const newUser = this.userRepository.create({
+      email: registerDto.email,
+      password: registerDto.password,
+      name: registerDto.name,
+    });
     await this.userRepository.save(newUser);
     const { password: pwd, ...result } = newUser;
-    const payload = { userId: newUser.id, email: newUser.email };
+    const payload = { sub: newUser.id, email: newUser.email };
     return {
       access_token: this.jwtService.sign(payload),
       user: result,

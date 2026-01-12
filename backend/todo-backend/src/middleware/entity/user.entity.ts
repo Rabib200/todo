@@ -2,12 +2,14 @@ import { Todo } from 'src/todo/entity/todo.entity';
 import {
   Column,
   CreateDateColumn,
+  Entity,
   OneToMany,
   PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
