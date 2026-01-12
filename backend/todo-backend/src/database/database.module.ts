@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Todo } from 'src/todo/entity/todo.entity';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get<string>('DATABASE_USERNAME') || '',
         password: configService.get<string>('DATABASE_PASSWORD') || '',
         database: configService.get<string>('DATABASE_NAME') || '',
-        entities: [],
+        entities: [Todo],
         synchronize: true,
       }),
     }),

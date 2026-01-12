@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './middleware/auth.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuthModule } from './middleware/auth.module';
     }),
     DatabaseModule,
     AuthModule,
+    TodoModule,
   ],
   controllers: [],
   providers: [],
